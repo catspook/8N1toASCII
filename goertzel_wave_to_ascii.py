@@ -60,6 +60,24 @@ def get_binary_from_peaks(sample):
     binary = list(map(lambda x: 1 if x == space else 0, peak_freqs))
     return binary 
 
+# normalizing sample values to [-1, 1]
+# (2* (x - min_x) / (max_x - min_x)) - 1
+def normalize(sample):
+    maximum = 0.0
+    minimum = math.inf
+    for i in range(0, len(sample)):
+        if sample[i] > maximum:
+            maximum = sample[i]
+        elif sample[i] < minimum:
+            minimum = sample[i]
+
+    new = []
+    bottom = maximum - minimum
+    for i in range(0, len(sample)):
+        top = sample[i] - minimum
+        new.append((2 * (top/bottom)) - 1)
+    return new
+
 # open wavefile, and get sample
 def get_sample():
     wavefile = wave.open(sys.argv[1], 'rb')
@@ -78,6 +96,7 @@ if __name__ == "__main__":
 
     sample_rate = 48000
     sample = get_sample()
-    binary = get_binary_from_peaks(sample)
+    normalized = normalize(sample)
+    binary = get_binary_from_peaks(normalized)
     sentance = make_sentance_from_binary(binary)
     write_message(sentance)
