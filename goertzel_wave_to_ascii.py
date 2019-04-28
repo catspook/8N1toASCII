@@ -38,7 +38,7 @@ def goertzel (sample_rate, samples, targ_freq):
     s1 = 0
     s2 = 0
     for i in range(len(samples)):
-        s0 = coefficient_vals * (s1 - s2) + samples[i]
+        s0 = coefficient_vals * s1 - s2 + samples[i]
         s2 = s1
         s1 = s0
     return np.square(s1) + np.square(s2) - s1 * s2 * coefficient_vals
@@ -54,10 +54,10 @@ def get_binary_from_peaks(sample):
         # Highest peak will show if it's a space or mark bit
         space = goertzel(sample_rate, np.asarray(chunk), 2025)
         mark = goertzel(sample_rate, np.asarray(chunk), 2225)
-        peak_freqs.append((lambda s, m: space if s > m else mark)(space, mark))
+        peak_freqs.append((lambda s, m: 's' if s > m else 'm')(space, mark))
     # 2225Hz mark corresponds to a 1
     # 2025Hz space corresponds to a 0
-    binary = list(map(lambda x: 1 if x == space else 0, peak_freqs))
+    binary = list(map(lambda x: 0 if x == 's' else 1, peak_freqs))
     return binary 
 
 # normalizing sample values to [-1, 1]
