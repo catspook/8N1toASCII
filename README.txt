@@ -1,6 +1,8 @@
 Trina Rutz
 April 7, 2018
 
+Note: the program requires that the file path to the wave sample be inputted as a command line argument.
+
 I began playing around with inputting the wave file in python pretty much as soon as it was announced. I had made some progress by the time the help files were posted, but I felt very unsure of why certain things needed to happen. Part of the problem is that I did not find any good resources explaining in detail how to read a wave file into python and what all the various steps meant, and so ‘findpeak.py’ was very useful to study and figure out exactly how the wave file was structured and how to read it in. Likewise, I also had mostly figured out the steps to solve the homework, but the ‘How-To’ was immensely helpful to confirm what I thought needed to happen and to use as a reference.
 
 I found C code for the Goertzel filter from the University of Washington, but used other resources when in making my own goertzel function which resulted in one that didn’t produce correct values in every circumstance. Pat Rademacher helped me overhaul my goertzel function into one that worked, and my goertzel function is an altered form of his. It turned out that one of the resources I’d used when making my goertzel function was just entirely off. 
