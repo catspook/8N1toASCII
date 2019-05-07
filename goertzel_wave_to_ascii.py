@@ -1,7 +1,7 @@
 # (c) 2019 Trina Rutz 
 # get_sample() inspired by Bart Massey's 'findpeak.py'
 # Found at https://github.com/BartMassey/pdx-cs-sound/blob/master/findpeak.py
-# goertzel() based on code by Pat Rademacher
+# goertzel() code helped by Pat Rademacher
 
 import sys
 import wave
@@ -30,7 +30,7 @@ def make_sentance_from_binary(binary):
     return sentance
 
 def goertzel (sample_rate, samples, targ_freq):
-    k = (len(samples) * targ_freq)/sample_rate
+    k = (len(samples) * targ_freq) / sample_rate
     w = ((2 * math.pi) / len(samples)) * k
     cosine_vals = np.cos(w)
     coefficient_vals = 2 * cosine_vals
@@ -79,9 +79,11 @@ def normalize(sample):
     return new
 
 # open wavefile, and get sample
+# this function is inspired by Bart Massey's code, more info at top
 def get_sample():
     wavefile = wave.open(sys.argv[1], 'rb')
     width = wavefile.getsampwidth()
+    print(width)
     wave_bytes = wavefile.readframes(wavefile.getnframes()) 
     # add each frame from file to sample array
     sample = []
