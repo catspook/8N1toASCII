@@ -83,7 +83,6 @@ def normalize(sample):
 def get_sample():
     wavefile = wave.open(sys.argv[1], 'rb')
     width = wavefile.getsampwidth()
-    print(width)
     wave_bytes = wavefile.readframes(wavefile.getnframes()) 
     # add each frame from file to sample array
     sample = []
